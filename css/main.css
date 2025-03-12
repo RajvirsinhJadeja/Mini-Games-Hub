@@ -1,0 +1,91 @@
+body {
+  background-color: rgba(33, 33, 33, 1);
+  height: 100svh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  user-select: none;
+  font-family: Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+}
+p.title {
+  color: white;
+  display: flex;
+  font-size: 3rem;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 20%;
+  justify-content: center;
+  align-items: end;
+  padding-bottom: 50px;
+  box-sizing: border-box;
+}
+div.container {
+  display: grid;
+  grid-template-columns: repeat(2, 300px);
+  grid-template-rows: repeat(2, 300px);
+  grid-gap: 50px;
+  margin: 0;
+  padding: 0;
+  height: 80%;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
+  justify-content: center;
+}
+div.game1,
+div.game2,
+div.game3,
+div.game4 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(53, 53, 53, 1);
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0;
+  transform: scale(1);
+  transition: transform 250ms, box-shadow 250ms;
+}
+div.game1 img,
+div.game2 img,
+div.game3 img,
+div.game4 img {
+  width: 100%;
+  height: 85%;
+  border-radius: 20px;
+  margin: 0;
+  padding: 0;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 5%;
+  box-sizing: border-box;
+}
+div.game1 p,
+div.game2 p,
+div.game3 p,
+div.game4 p {
+  width: 100%;
+  height: 15%;
+  margin: 0;
+  padding: 0;
+  padding-top: 3.5%;
+  font-size: 1.3rem;
+  text-align: center;
+}
+div.game1:hover,
+div.game2:hover,
+div.game3:hover,
+div.game4:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 10px 7px rgb(255, 255, 255, 0.25);
+}
