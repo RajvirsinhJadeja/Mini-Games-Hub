@@ -5,10 +5,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  user-select: none;
   font-family: Helvetica, sans-serif;
   font-weight: bold;
   font-size: 1rem;
@@ -16,15 +12,11 @@ body {
 p.title {
   color: white;
   display: flex;
-  font-size: 3rem;
+  font-size: clamp(2.5rem, 10vw, 5rem);
   margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 20%;
-  justify-content: center;
-  align-items: end;
+  padding-top: 50px;
   padding-bottom: 50px;
-  box-sizing: border-box;
+  justify-content: center;
 }
 div.container {
   display: grid;
@@ -33,7 +25,6 @@ div.container {
   grid-gap: 50px;
   margin: 0;
   padding: 0;
-  height: 80%;
   padding-left: 50px;
   padding-right: 50px;
   padding-bottom: 50px;
