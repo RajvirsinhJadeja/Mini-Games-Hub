@@ -1,10 +1,14 @@
+html {
+  overflow-y: scroll;
+}
 body {
   background-color: rgba(33, 33, 33, 1);
-  height: 100svh;
+  min-height: 100dvh;
   margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-height: 100%;
   font-family: Helvetica, sans-serif;
   font-weight: bold;
   font-size: 1rem;
@@ -12,7 +16,7 @@ body {
 p.title {
   color: white;
   display: flex;
-  font-size: clamp(2.5rem, 10vw, 5rem);
+  font-size: clamp(3.3rem, 13vw, 5rem);
   margin: 0;
   padding-top: 50px;
   padding-bottom: 50px;
@@ -20,8 +24,7 @@ p.title {
 }
 div.container {
   display: grid;
-  grid-template-columns: repeat(2, 300px);
-  grid-template-rows: repeat(2, 300px);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 500px));
   grid-gap: 50px;
   margin: 0;
   padding: 0;
