@@ -55,7 +55,7 @@ div.sudoku-grid {
   grid-template-rows: repeat(9, 1fr);
   margin: 0;
   width: clamp(350px, 90vw, 600px);
-  height: clamp(350px, 50vw, 600px);
+  height: clamp(350px, 90vw, 600px);
 }
 
 div.cell {
