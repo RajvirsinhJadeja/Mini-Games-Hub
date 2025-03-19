@@ -1,5 +1,5 @@
 html {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 body {
   background-color: rgba(33, 33, 33, 1);
@@ -34,9 +34,7 @@ div.container {
   justify-content: center;
 }
 div.game1,
-div.game2,
-div.game3,
-div.game4 {
+div.game2 {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -51,9 +49,7 @@ div.game4 {
   transition: transform 250ms, box-shadow 250ms;
 }
 div.game1 img,
-div.game2 img,
-div.game3 img,
-div.game4 img {
+div.game2 img {
   width: 100%;
   height: 85%;
   border-radius: 20px;
@@ -65,9 +61,7 @@ div.game4 img {
   box-sizing: border-box;
 }
 div.game1 p,
-div.game2 p,
-div.game3 p,
-div.game4 p {
+div.game2 p {
   width: 100%;
   height: 15%;
   margin: 0;
@@ -77,9 +71,7 @@ div.game4 p {
   text-align: center;
 }
 div.game1:hover,
-div.game2:hover,
-div.game3:hover,
-div.game4:hover {
+div.game2:hover {
   transform: scale(1.1);
   box-shadow: 0px 0px 10px 7px rgb(255, 255, 255, 0.25);
 }
