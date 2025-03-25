@@ -1,16 +1,90 @@
 body {
-  justify-items: center;
-  align-content: center;
-  background-color: bisque;
-  height: 100dvh;
-}
-.modal {
+  background-color: rgba(33, 33, 33, 1);
+  min-height: 100dvh;
+  margin: 0;
   display: flex;
   justify-content: center;
-  height: 100dvh;
-  background-color: #575757;
+  align-items: center;
+  overflow-x: hidden;
+  user-select: none;
+  font-family: Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+}
+.modal {
+}
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  width: 400px;
+  height: 100%;
+  background-color: rgba(53, 53, 53, 1);
   border: 3px solid white;
-  width: clamp(100px, 100vw, 500px);
   border-radius: 20px;
-  height: 100px;
+  margin: 0;
+  padding: 15px;
+}
+.modal-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-title {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+.modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  width: 40px;
+  height: 40px;
+  font-size: 3rem;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+  transition: 0ms;
+}
+.modal-message {
+  color: white;
+  font-size: 1rem;
+  font-weight: lighter;
+}
+.modal-buttons {
+  display: flex;
+  gap: 50px;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.tryAgain-button,
+.home-button {
+  flex: 1;
+  min-height: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: normal;
+  transition: transform 250ms, opacity 250ms;
+}
+.tryAgain-button:hover,
+.home-button:hover {
+  transform: scale(0.95);
+  opacity: 0.75;
+}
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 51%;
 }
