@@ -226,10 +226,11 @@ var solved = [
 
 let grid = [[]];
 let cellSelected = {};
-const boardSelected = Math.floor(Math.random() * unsolved.length);
+let boardSelected;
 let score = 0;
 let mistake = 0;
 let secCounter = 0;
+let formattedTime;
 
 createBoardMatrix();
 createSudokuBoard();
@@ -254,7 +255,13 @@ function createBoardMatrix() {
     }
   }
 }
+
 function createSudokuBoard() {
+  const modalElement = document.getElementById("modal");
+  modalElement.style.display = "none";
+
+  boardSelected = Math.floor(Math.random() * unsolved.length);
+
   for (let row = 0; row < 9; row++) {
     for (let col = 0; col < 9; col++) {
       const cell = grid[row][col];
@@ -280,6 +287,7 @@ function createSudokuBoard() {
     }
   }
 }
+
 function numberInput(input) {
   if (mistake >= 3) {
     return;
@@ -311,9 +319,29 @@ function numberInput(input) {
     }
   }
 }
+
 function gameOver() {
-  document.getElementById("gameOverScore").textContent = "Score: " + score;
+  document.getElementById("modal-title").textContent = "Game Over";
+  document.getElementById("modal-message-1").textContent =
+    "Great effort! You managed to get a score of " +
+    score +
+    " within " +
+    formattedTime +
+    ".";
+
+  const modalElement = document.getElementById("modal");
+  modalElement.style.display = "block";
+
+  document
+    .getElementById("tryAgain-button")
+    .addEventListener("click", function () {
+      resetGame();
+    });
+  document.getElementById("home-button").addEventListener("click", function () {
+    window.location.href = "index.html";
+  });
 }
+
 function resetGame() {
   score = 0;
   mistake = 0;
@@ -326,7 +354,6 @@ function resetGame() {
   document.querySelector(".mistakes").textContent = "Mistakes: 0/3";
   document.querySelector(".time").textContent = "00:00";
 
-  const boardSelected = Math.floor(Math.random() * unsolved.length);
   createSudokuBoard();
 }
 
@@ -337,6 +364,7 @@ function resetBoardColor() {
     }
   }
 }
+
 function colorColumn() {
   for (let row = 0; row < 9; row++) {
     grid[row][cellSelected.col].style.backgroundColor =
@@ -346,6 +374,7 @@ function colorColumn() {
         "rgba(160, 160, 160, .7)";
   }
 }
+
 function colorRow() {
   for (let col = 0; col < 9; col++) {
     grid[cellSelected.row][col].style.backgroundColor =
@@ -355,11 +384,12 @@ function colorRow() {
         "rgba(160, 160, 160, .7)";
   }
 }
+
 function time() {
   let minutes = Math.floor(secCounter / 60);
   let seconds = secCounter % 60;
 
-  let formattedTime =
+  formattedTime =
     (minutes < 10 ? "0" : "") +
     minutes +
     ":" +
