@@ -257,9 +257,6 @@ function createBoardMatrix() {
 }
 
 function createSudokuBoard() {
-  const modalElement = document.getElementById("modal");
-  modalElement.style.display = "none";
-
   boardSelected = Math.floor(Math.random() * unsolved.length);
 
   for (let row = 0; row < 9; row++) {
@@ -330,15 +327,21 @@ function gameOver() {
     ".";
 
   const modalElement = document.getElementById("modal");
-  modalElement.style.display = "block";
+  modalElement.showModal();
 
   document
     .getElementById("tryAgain-button")
     .addEventListener("click", function () {
+      modalElement.close();
       resetGame();
     });
   document.getElementById("home-button").addEventListener("click", function () {
+    modalElement.close();
     window.location.href = "index.html";
+  });
+
+  document.getElementById("modal-close").addEventListener("click", function () {
+    modalElement.close();
   });
 }
 
@@ -404,12 +407,21 @@ function time() {
 let num = document.getElementsByClassName("num");
 for (let a = 0; a < 9; a++) {
   num[a].addEventListener("click", function () {
+    if (mistake >= 3) {
+      const modalElement = document.getElementById("modal");
+      modalElement.showModal();
+      return;
+    }
     numberInput(num[a].textContent);
   });
 }
 
 document.addEventListener("keydown", function (e) {
-  if (mistake >= 3) return;
+  if (mistake >= 3) {
+    const modalElement = document.getElementById("modal");
+    modalElement.showModal();
+    return;
+  }
 
   if (/[0-9]/.test(e.key)) {
     numberInput(e.key);
@@ -492,6 +504,11 @@ document.addEventListener("keydown", function (e) {
 for (let a = 0; a < 9; a++) {
   for (let b = 0; b < 9; b++) {
     grid[a][b].addEventListener("click", function () {
+      if (mistake >= 3) {
+        const modalElement = document.getElementById("modal");
+        modalElement.showModal();
+        return;
+      }
       resetBoardColor();
       cellSelected.cell = grid[a][b];
       cellSelected.row = a;

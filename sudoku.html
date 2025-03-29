@@ -29,10 +29,12 @@
       </div>
     </div>
 
-    <div class="modal-content" id="modal">
+    <dialog class="modal-content" id="modal">
       <div class="modal-header">
         <p class="modal-title" id="modal-title"></p>
-        <button class="modal-close">&times;</button>
+        <button class="modal-close" id="modal-close" tabindex="-1">
+          &times;
+        </button>
       </div>
       <div class="modal-message">
         <p id="modal-message-1"></p>
@@ -42,7 +44,7 @@
         <button class="tryAgain-button" id="tryAgain-button">Try again</button>
         <button class="home-button" id="home-button">Home</button>
       </div>
-    </div>
+    </dialog>
 
     <script src="js/sudoku.js"></script>
   </body>

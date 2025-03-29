@@ -112,16 +112,13 @@ p.num:hover {
 }
 
 .modal-content {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-content: space-between;
-  width: 400px;
   background-color: rgba(53, 53, 53, 1);
   border: 3px solid white;
   border-radius: 20px;
-  margin: 0;
   padding: 15px;
+}
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.75);
 }
 .modal-header {
   display: flex;
