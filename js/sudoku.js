@@ -317,6 +317,30 @@ function numberInput(input) {
   }
 }
 
+function gameWon() {
+  document.getElementById("modal-title").textContent = "Congratulations";
+  document.getElementById("modal-message-1").textContent =
+    "Great Job! You got a score of " + score + " within " + formattedTime + ".";
+
+  const modalElement = document.getElementById("modal");
+  modalElement.showModal();
+
+  document
+    .getElementById("tryAgain-button")
+    .addEventListener("click", function () {
+      modalElement.close();
+      resetGame();
+    });
+  document.getElementById("home-button").addEventListener("click", function () {
+    modalElement.close();
+    window.location.href = "index.html";
+  });
+
+  document.getElementById("modal-close").addEventListener("click", function () {
+    modalElement.close();
+  });
+}
+
 function gameOver() {
   document.getElementById("modal-title").textContent = "Game Over";
   document.getElementById("modal-message-1").textContent =
