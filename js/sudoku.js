@@ -1,3 +1,4 @@
+/*
 var unsolved = [
   [
     "xxx26x7x1",
@@ -223,10 +224,41 @@ var solved = [
     "754618932",
   ],
 ];
+*/
+
+var unsolved = [
+  [
+    "435269781",
+    "682571493",
+    "197834562",
+    "826195347",
+    "374682915",
+    "951743628",
+    "519326874",
+    "248957136",
+    "76341825x",
+  ],
+];
+
+var solved = [
+  [
+    "435269781",
+    "682571493",
+    "197834562",
+    "826195347",
+    "374682915",
+    "951743628",
+    "519326874",
+    "248957136",
+    "763418259",
+  ],
+];
 
 let grid = [[]];
 let cellSelected = {};
 let boardSelected;
+let pickedUnsolved = [];
+let gameOverCheck = false;
 let score = 0;
 let mistake = 0;
 let secCounter = 0;
@@ -259,24 +291,24 @@ function createBoardMatrix() {
 function createSudokuBoard() {
   boardSelected = Math.floor(Math.random() * unsolved.length);
 
+  pickedUnsolved = unsolved[boardSelected].map((row) => row.split("").join(""));
+
   for (let row = 0; row < 9; row++) {
     for (let col = 0; col < 9; col++) {
       const cell = grid[row][col];
       const textNum = cell.querySelector(".cell-num");
 
-      if (unsolved[boardSelected][row][col] != "x") {
-        textNum.textContent = unsolved[boardSelected][row][col];
+      if (pickedUnsolved[row][col] != "x") {
+        textNum.textContent = pickedUnsolved[row][col];
       } else {
         textNum.textContent = "";
       }
 
       const thickBorder = "4px solid white";
-
       if (row === 0) cell.style.borderTop = thickBorder;
       if (col === 0) cell.style.borderLeft = thickBorder;
       if (col === 8) cell.style.borderRight = thickBorder;
       if (row === 8) cell.style.borderBottom = thickBorder;
-
       if (row === 2 || row === 5) cell.style.borderBottom = thickBorder;
       if (col === 2 || col === 5) cell.style.borderRight = thickBorder;
 
@@ -290,7 +322,7 @@ function numberInput(input) {
     return;
   }
 
-  if (unsolved[boardSelected][cellSelected.row][cellSelected.col] == "x") {
+  if (pickedUnsolved[cellSelected.row][cellSelected.col] == "x") {
     if (input == solved[boardSelected][cellSelected.row][cellSelected.col]) {
       cellSelected.cell.querySelector(".cell-num").textContent = input;
       cellSelected.cell.querySelector(".cell-num").style.color = "green";
@@ -298,10 +330,13 @@ function numberInput(input) {
       score += 50;
       document.querySelector(".score").textContent = "Score: " + score;
 
-      let stringArray = unsolved[boardSelected][cellSelected.row].split("");
+      let stringArray = pickedUnsolved[cellSelected.row].split("");
       stringArray[cellSelected.col] = input;
-      let updatedString = stringArray.join("");
-      unsolved[boardSelected][cellSelected.row] = updatedString;
+      pickedUnsolved[cellSelected.row] = stringArray.join("");
+
+      setTimeout(() => {
+        checkGameComplete();
+      }, 250);
     } else {
       cellSelected.cell.querySelector(".cell-num").textContent = input;
       cellSelected.cell.querySelector(".cell-num").style.color = "red";
@@ -317,10 +352,24 @@ function numberInput(input) {
   }
 }
 
+function checkGameComplete() {
+  for (let row = 0; row < 9; row++) {
+    if (pickedUnsolved[row] !== solved[boardSelected][row]) {
+      return false;
+    }
+  }
+  gameOverCheck = true;
+  gameWon();
+}
+
 function gameWon() {
   document.getElementById("modal-title").textContent = "Congratulations";
   document.getElementById("modal-message-1").textContent =
-    "Great Job! You got a score of " + score + " within " + formattedTime + ".";
+    "Great job! You successfully got a score of " +
+    score +
+    " within " +
+    formattedTime +
+    ".";
 
   const modalElement = document.getElementById("modal");
   modalElement.showModal();
@@ -374,6 +423,7 @@ function resetGame() {
   mistake = 0;
   secCounter = 0;
   cellSelected = {};
+  gameOverCheck = false;
 
   resetBoardColor();
 
@@ -425,13 +475,13 @@ function time() {
 
   document.querySelector(".time").textContent = formattedTime;
 
-  if (mistake < 3) secCounter++;
+  if (mistake < 3 && gameOverCheck == false) secCounter++;
 }
 
 let num = document.getElementsByClassName("num");
 for (let a = 0; a < 9; a++) {
   num[a].addEventListener("click", function () {
-    if (mistake >= 3) {
+    if (mistake >= 3 || gameOverCheck == true) {
       const modalElement = document.getElementById("modal");
       modalElement.showModal();
       return;
@@ -441,7 +491,7 @@ for (let a = 0; a < 9; a++) {
 }
 
 document.addEventListener("keydown", function (e) {
-  if (mistake >= 3) {
+  if (mistake >= 3 || gameOverCheck == true) {
     const modalElement = document.getElementById("modal");
     modalElement.showModal();
     return;
@@ -528,7 +578,7 @@ document.addEventListener("keydown", function (e) {
 for (let a = 0; a < 9; a++) {
   for (let b = 0; b < 9; b++) {
     grid[a][b].addEventListener("click", function () {
-      if (mistake >= 3) {
+      if (mistake >= 3 || gameOverCheck == true) {
         const modalElement = document.getElementById("modal");
         modalElement.showModal();
         return;
