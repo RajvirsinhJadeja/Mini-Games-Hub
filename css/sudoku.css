@@ -113,6 +113,7 @@ p.num:hover {
 
 .modal-content {
   background-color: rgba(53, 53, 53, 1);
+  width: clamp(300px, 70vw, 420px);
   border: 3px solid white;
   border-radius: 20px;
   padding: 15px;
