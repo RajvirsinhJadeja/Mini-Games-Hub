@@ -1,11 +1,10 @@
-var unsolved = [];
-
-var solved = [];
+let unsolved = [];
+let solved = [];
 
 let grid = [[]];
 let cellSelected = {};
-let boardSelected;
-let pickedUnsolved = [];
+let userUnsolved = [];
+
 let gameOverCheck = false;
 let score = 0;
 let mistake = 0;
@@ -36,19 +35,30 @@ function createBoardMatrix() {
   }
 }
 
-function createSudokuBoard() {
-  getSudokuBoard();
+async function getSudokuBoard() {
+  try {
+    const response = await fetch("https://sudoku-api.vercel.app/api/dosuku");
+    const data = await response.json();
+    unsolved = data.newboard.grids[0].value;
+    userUnsolved = unsolved;
 
-  /*
-  pickedUnsolved = unsolved;
+    solved = data.newboard.grids[0].solution;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function createSudokuBoard() {
+  await getSudokuBoard();
+  userUnsolved = unsolved;
 
   for (let row = 0; row < 9; row++) {
     for (let col = 0; col < 9; col++) {
       const cell = grid[row][col];
       const textNum = cell.querySelector(".cell-num");
 
-      if (pickedUnsolved[row][col] != 0) {
-        textNum.textContent = pickedUnsolved[row][col];
+      if (userUnsolved[row][col] != 0) {
+        textNum.textContent = userUnsolved[row][col];
       } else {
         textNum.textContent = "";
       }
@@ -64,20 +74,6 @@ function createSudokuBoard() {
       textNum.style.color = "white";
     }
   }
-    */
-}
-
-async function getSudokuBoard() {
-  try {
-    const response = await fetch("https://sudoku-api.vercel.app/api/dosuku");
-    const data = await response.json();
-    unsolved = data.newboard.grids[0].value;
-    solved = data.newboard.grids[0].solution;
-    console.log("Here is the unsolved board: " + JSON.stringify(unsolved));
-    console.log("Here is the solved board: " + JSON.stringify(solved));
-  } catch (error) {
-    console.log(error);
-  }
 }
 
 function numberInput(input) {
@@ -85,18 +81,15 @@ function numberInput(input) {
     return;
   }
 
-  /*
-  if (pickedUnsolved[cellSelected.row][cellSelected.col] == 0) {
-    if (input == solved[boardSelected][cellSelected.row][cellSelected.col]) {
+  if (userUnsolved[cellSelected.row][cellSelected.col] == 0) {
+    if (input == solved[cellSelected.row][cellSelected.col]) {
       cellSelected.cell.querySelector(".cell-num").textContent = input;
       cellSelected.cell.querySelector(".cell-num").style.color = "green";
 
       score += 50;
       document.querySelector(".score").textContent = "Score: " + score;
 
-      let stringArray = pickedUnsolved[cellSelected.row].split("");
-      stringArray[cellSelected.col] = input;
-      pickedUnsolved[cellSelected.row] = stringArray.join("");
+      userUnsolved[cellSelected.row][cellSelected.col] = input;
 
       setTimeout(() => {
         checkGameComplete();
@@ -114,15 +107,13 @@ function numberInput(input) {
       }
     }
   }
-    */
 }
 
 function checkGameComplete() {
-  for (let row = 0; row < 9; row++) {
-    if (pickedUnsolved[row] !== solved[boardSelected][row]) {
-      return false;
-    }
+  if (userUnsolved.toString() != solved.toString()) {
+    return false;
   }
+
   gameOverCheck = true;
   gameWon();
 }
