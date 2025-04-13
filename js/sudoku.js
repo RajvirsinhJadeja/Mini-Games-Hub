@@ -3,7 +3,6 @@ let solved = [];
 
 let grid = [[]];
 let cellSelected = {};
-let userUnsolved = [];
 
 let gameOverCheck = false;
 let score = 0;
@@ -40,8 +39,6 @@ async function getSudokuBoard() {
     const response = await fetch("https://sudoku-api.vercel.app/api/dosuku");
     const data = await response.json();
     unsolved = data.newboard.grids[0].value;
-    userUnsolved = unsolved;
-
     solved = data.newboard.grids[0].solution;
   } catch (error) {
     console.log(error);
@@ -50,15 +47,14 @@ async function getSudokuBoard() {
 
 async function createSudokuBoard() {
   await getSudokuBoard();
-  userUnsolved = unsolved;
 
   for (let row = 0; row < 9; row++) {
     for (let col = 0; col < 9; col++) {
       const cell = grid[row][col];
       const textNum = cell.querySelector(".cell-num");
 
-      if (userUnsolved[row][col] != 0) {
-        textNum.textContent = userUnsolved[row][col];
+      if (unsolved[row][col] != 0) {
+        textNum.textContent = unsolved[row][col];
       } else {
         textNum.textContent = "";
       }
@@ -81,7 +77,7 @@ function numberInput(input) {
     return;
   }
 
-  if (userUnsolved[cellSelected.row][cellSelected.col] == 0) {
+  if (unsolved[cellSelected.row][cellSelected.col] == 0) {
     if (input == solved[cellSelected.row][cellSelected.col]) {
       cellSelected.cell.querySelector(".cell-num").textContent = input;
       cellSelected.cell.querySelector(".cell-num").style.color = "green";
@@ -89,10 +85,15 @@ function numberInput(input) {
       score += 50;
       document.querySelector(".score").textContent = "Score: " + score;
 
-      userUnsolved[cellSelected.row][cellSelected.col] = input;
+      unsolved[cellSelected.row][cellSelected.col] = input;
 
       setTimeout(() => {
-        checkGameComplete();
+        const isComplete = checkGameComplete(unsolved, solved);
+
+        if (isComplete) {
+          gameOverCheck = true;
+          gameWon();
+        }
       }, 250);
     } else {
       cellSelected.cell.querySelector(".cell-num").textContent = input;
@@ -109,13 +110,8 @@ function numberInput(input) {
   }
 }
 
-function checkGameComplete() {
-  if (userUnsolved.toString() != solved.toString()) {
-    return false;
-  }
-
-  gameOverCheck = true;
-  gameWon();
+function checkGameComplete(unsolved, solved) {
+  return unsolved.toString() === solved.toString();
 }
 
 function gameWon() {
@@ -349,4 +345,4 @@ for (let a = 0; a < 9; a++) {
   }
 }
 
-module.exports = checkGameComplete;
+module.exports = { checkGameComplete };
