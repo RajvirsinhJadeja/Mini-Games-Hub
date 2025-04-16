@@ -14,5 +14,11 @@
   },
   "dependencies": {
     "jest-environment-jsdom": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFiles": [
+      "./test/setup.js"
+    ]
   }
 }
