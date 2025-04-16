@@ -63,6 +63,7 @@ All core logic is modular and test-covered.
 ## 🧑‍💻 Author
 
 Rajvirsinh Jadeja - rjs.jadeja@gmail.com
+
 Software Developer | Game Enthusiast
 
 ## 📜 License
