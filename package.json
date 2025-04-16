@@ -1,0 +1,24 @@
+{
+  "name": "mini-games-hub",
+  "version": "1.0.0",
+  "description": "A collection of fun and interactive mini-games built using JavaScript, HTML, and CSS. Includes classic games like Sudoku, with more to come!",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFiles": [
+      "./test/setup.js"
+    ]
+  }
+}
