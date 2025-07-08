@@ -7,5 +7,64 @@
     <title>Wordle</title>
   </head>
 
-  <body></body>
+  <body>
+    <div class="container">
+      <div class="wordle-grid"></div>
+      <div class="input-grid">
+        <div class="row1">
+          <p class="letter">Q</p>
+          <p class="letter">W</p>
+          <p class="letter">E</p>
+          <p class="letter">R</p>
+          <p class="letter">T</p>
+          <p class="letter">Y</p>
+          <p class="letter">U</p>
+          <p class="letter">I</p>
+          <p class="letter">O</p>
+          <p class="letter">P</p>
+        </div>
+        <div class="row2">
+          <p class="letter">A</p>
+          <p class="letter">S</p>
+          <p class="letter">D</p>
+          <p class="letter">F</p>
+          <p class="letter">G</p>
+          <p class="letter">H</p>
+          <p class="letter">J</p>
+          <p class="letter">K</p>
+          <p class="letter">L</p>
+        </div>
+        <div class="row3">
+          <p class="letter">Z</p>
+          <p class="letter">X</p>
+          <p class="letter">C</p>
+          <p class="letter">V</p>
+          <p class="letter">B</p>
+          <p class="letter">N</p>
+          <p class="letter">M</p>
+        </div>
+        <div class="row4">
+          <p class="button">Enter</p>
+          <p class="button">Delete</p>
+        </div>
+      </div>
+    </div>
+
+    <dialog class="modal-content" id="modal">
+      <div class="modal-header">
+        <p class="modal-title" id="modal-title"></p>
+        <button class="modal-close" id="modal-close" tabindex="-1">
+          &times;
+        </button>
+      </div>
+      <div class="modal-message">
+        <p id="modal-message-1"></p>
+        <p>Want to try again or head back home?</p>
+      </div>
+      <div class="modal-buttons">
+        <button class="tryAgain-button" id="tryAgain-button">Try again</button>
+        <button class="home-button" id="home-button">Home</button>
+      </div>
+    </dialog>
+  </body>
 </html>
