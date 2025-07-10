@@ -3,5 +3,5 @@ document.getElementById("game1").addEventListener("click", function () {
 });
 
 document.getElementById("game2").addEventListener("click", function () {
-  Window.location.href = "wordle.html";
+  window.location.href = "wordle.html";
 });

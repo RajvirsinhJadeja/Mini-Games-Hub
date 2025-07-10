@@ -41,7 +41,7 @@ async function getSudokuBoard() {
     unsolved = data.newboard.grids[0].value;
     solved = data.newboard.grids[0].solution;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
