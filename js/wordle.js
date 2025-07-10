@@ -17,3 +17,13 @@ async function getWord() {
 }
 
 getWord();
+
+document.addEventListener("keydown", function (e) {
+  if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) {
+    console.log("typed a key: " + e.key.toLowerCase());
+  } else if (e.key === "Enter") {
+    console.log("Pressed Enter!");
+  } else if (e.key === "Backspace") {
+    console.log("Pressed Backspace!!");
+  }
+});
