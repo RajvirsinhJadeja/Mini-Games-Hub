@@ -22,25 +22,24 @@ div.container {
 }
 div.wordle-grid {
   display: grid;
+  justify-items: center;
   grid-template-rows: repeat(6, 1fr);
   grid-template-columns: repeat(5, 1fr);
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   margin: 0;
   padding: 0;
-  width: clamp(350px, min(93.2vw, 70vh), 620px);
-  height: clamp(350px, min(90vw, 70vh), 600px);
-  border-color: white;
-  border-width: 2;
-  border-style: solid;
+  width: clamp(370px, 77vw, 500px);
+  height: clamp(450px, 92vw, 600px);
 }
 div.input-grid {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: clamp(350px, min(90vw, 70vh), 600px);
+  width: clamp(350px, 90vw, 600px);
   padding: 10px;
+  margin-top: 10px;
 }
 div.row1 {
   display: flex;
@@ -79,8 +78,8 @@ p.letter {
   align-items: center;
   border: 3px solid white;
   border-radius: 51%;
-  width: clamp(30px, min(7.7vw, 6vh), 50px);
-  height: clamp(30px, min(7.7vw, 6vh), 50px);
+  width: clamp(30px, 7.7vw, 50px);
+  height: clamp(30px, 7.7vw, 50px);
   cursor: pointer;
   margin: 0;
   padding: 0;
@@ -92,8 +91,8 @@ p.button {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: clamp(30px, min(7.7vw, 6vh), 50px);
-  width: clamp(30px, min(13vw, 9vh), 90px);
+  height: clamp(30px, 7.7vw, 50px);
+  width: clamp(30px, 13vw, 90px);
   border: 3px solid white;
   border-radius: 15%;
   margin: 0;
