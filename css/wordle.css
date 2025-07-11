@@ -78,8 +78,8 @@ p.letter {
   align-items: center;
   border: 3px solid white;
   border-radius: 51%;
-  width: clamp(30px, 7.7vw, 50px);
-  height: clamp(30px, 7.7vw, 50px);
+  width: clamp(30px, 7.1vw, 50px);
+  height: clamp(30px, 7.1vw, 50px);
   cursor: pointer;
   margin: 0;
   padding: 0;
