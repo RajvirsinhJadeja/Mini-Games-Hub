@@ -3,7 +3,7 @@ const set = new Set();
 let grid = [[]];
 let rowCount = 0;
 let colCount = 0;
-let gameOver = false;
+let disableInput = false;
 
 gameLoop();
 
@@ -32,8 +32,8 @@ async function getWord() {
     const test = await response.json();
     console.log(test[0]);
     for (let i = 0; i < 5; i++) {
-      word.push(test[0].charAt(i));
-      set.add(test[0].charAt(i));
+      word.push(test[0].charAt(i).toLowerCase());
+      set.add(test[0].charAt(i).toLowerCase());
     }
     console.log(word);
     console.log(set);
@@ -69,6 +69,31 @@ function createWordleGrid() {
   }
 }
 
+function checkWord() {
+  disableInput = true;
+  for (let col = 0; col < 5; col++) {
+    let textContainer = grid[rowCount][col];
+
+    setTimeout(() => {
+      if (textContainer.innerText.toLowerCase() == word[col].toLowerCase()) {
+        textContainer.style.transition = "background-color 0.3s ease";
+        textContainer.style.backgroundColor = "green";
+      } else if (set.has(textContainer.innerText.toLowerCase())) {
+        textContainer.style.transition = "background-color 0.3s ease";
+        textContainer.style.backgroundColor = "orange";
+      } else {
+        textContainer.style.transition = "background-color 0.3s ease";
+        textContainer.style.backgroundColor = "red";
+      }
+    }, 300 * col);
+  }
+  setTimeout(() => {
+    disableInput = false;
+  }, 2000);
+}
+
+function handleGameOver() {}
+
 function handleInput(input) {
   let textContainer = grid[rowCount][colCount];
 
@@ -83,11 +108,12 @@ function handleInput(input) {
 function handleEnter() {
   let textContainer = grid[rowCount][colCount];
   if (colCount === 4 && textContainer.innerText != "") {
+    checkWord();
     rowCount++;
     colCount = 0;
   }
 
-  if (rowCount === 5 && colCount === 4) gameOver = true;
+  if (rowCount === 5 && colCount === 4) handleGameOver();
 }
 
 function handleBackspace() {
@@ -102,7 +128,7 @@ function handleBackspace() {
 }
 
 function handleKeyPress(e) {
-  if (gameOver) return;
+  if (disableInput) return;
 
   if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) {
     handleInput(e.key.toUpperCase());
@@ -114,7 +140,7 @@ function handleKeyPress(e) {
 }
 
 function handleClickPress(e) {
-  if (gameOver) return;
+  if (disableInput) return;
 
   const clickedElement = e.target;
   if (clickedElement.innerText == "Enter") handleEnter();
