@@ -17,6 +17,11 @@ function gameLoop() {
   letterButtons.forEach((charButton) =>
     charButton.addEventListener("click", handleClickPress)
   );
+
+  const actionButtons = document.querySelectorAll(".button");
+  actionButtons.forEach((button) =>
+    button.addEventListener("click", handleClickPress)
+  );
 }
 
 async function getWord() {
@@ -76,7 +81,8 @@ function handleInput(input) {
 }
 
 function handleEnter() {
-  if (colCount === 4) {
+  let textContainer = grid[rowCount][colCount];
+  if (colCount === 4 && textContainer.innerText != "") {
     rowCount++;
     colCount = 0;
   }
@@ -111,6 +117,7 @@ function handleClickPress(e) {
   if (gameOver) return;
 
   const clickedElement = e.target;
-
-  handleInput(clickedElement.innerText);
+  if (clickedElement.innerText == "Enter") handleEnter();
+  else if (clickedElement.innerText == "Delete") handleBackspace();
+  else handleInput(clickedElement.innerText);
 }
