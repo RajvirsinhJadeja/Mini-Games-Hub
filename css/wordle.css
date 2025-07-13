@@ -85,7 +85,6 @@ p.letter {
   padding: 0;
   font-size: 1.5rem;
   color: white;
-  transition: box-shadow 250ms, transform 250ms;
 }
 p.button {
   display: flex;
@@ -100,15 +99,32 @@ p.button {
   font-size: clamp(1rem, 3.5vw, 1.5rem);
   color: white;
   cursor: pointer;
-  transition: box-shadow 250ms, transform 250ms;
 }
+
 p.letter:hover {
   transform: scale(1.1);
   box-shadow: 0px 0px 10px 7px rgb(255, 255, 255, 0.25);
 }
+
+.no-hover {
+  pointer-events: none;
+}
+
+p.letter.no-hover:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  cursor: default !important;
+}
+
 p.button:hover {
   transform: scale(1.1);
   box-shadow: 0px 0px 10px 7px rgb(255, 255, 255, 0.25);
+}
+
+.no-hover:hover {
+  background-color: red;
+  cursor: default;
+  pointer-events: none;
 }
 
 .modal-content {

@@ -1,5 +1,5 @@
 let word = [];
-const set = new Set();
+const wordSet = new Set();
 let grid = [[]];
 let rowCount = 0;
 let colCount = 0;
@@ -33,10 +33,10 @@ async function getWord() {
     console.log(test[0]);
     for (let i = 0; i < 5; i++) {
       word.push(test[0].charAt(i).toLowerCase());
-      set.add(test[0].charAt(i).toLowerCase());
+      wordSet.add(test[0].charAt(i).toLowerCase());
     }
     console.log(word);
-    console.log(set);
+    console.log(wordSet);
   } catch (error) {
     console.error(error);
   }
@@ -67,29 +67,6 @@ function createWordleGrid() {
       grid[row][col] = cell;
     }
   }
-}
-
-function checkWord() {
-  disableInput = true;
-  for (let col = 0; col < 5; col++) {
-    let textContainer = grid[rowCount][col];
-
-    setTimeout(() => {
-      if (textContainer.innerText.toLowerCase() == word[col].toLowerCase()) {
-        textContainer.style.transition = "background-color 0.3s ease";
-        textContainer.style.backgroundColor = "green";
-      } else if (set.has(textContainer.innerText.toLowerCase())) {
-        textContainer.style.transition = "background-color 0.3s ease";
-        textContainer.style.backgroundColor = "orange";
-      } else {
-        textContainer.style.transition = "background-color 0.3s ease";
-        textContainer.style.backgroundColor = "red";
-      }
-    }, 300 * col);
-  }
-  setTimeout(() => {
-    disableInput = false;
-  }, 2000);
 }
 
 function handleGameOver() {}
@@ -125,6 +102,36 @@ function handleBackspace() {
   textContainer = grid[rowCount][colCount];
 
   textContainer.textContent = "";
+}
+
+function checkWord() {
+  disableInput = true;
+  for (let col = 0; col < 5; col++) {
+    let textContainer = grid[rowCount][col];
+
+    setTimeout(() => {
+      if (textContainer.innerText.toLowerCase() == word[col].toLowerCase()) {
+        textContainer.style.transition = "background-color 0.3s ease";
+        textContainer.style.backgroundColor = "green";
+      } else if (wordSet.has(textContainer.innerText.toLowerCase())) {
+        textContainer.style.transition = "background-color 0.3s ease";
+        textContainer.style.backgroundColor = "orange";
+      } else {
+        textContainer.style.transition = "background-color 0.3s ease";
+        textContainer.style.backgroundColor = "red";
+
+        const makeRedButton = document.querySelector(
+          `[data-letter="${textContainer.innerText}"]`
+        );
+
+        makeRedButton.style.backgroundColor = "red";
+        makeRedButton.classList.add("no-hover");
+      }
+    }, 300 * col);
+  }
+  setTimeout(() => {
+    disableInput = false;
+  }, 2000);
 }
 
 function handleKeyPress(e) {
