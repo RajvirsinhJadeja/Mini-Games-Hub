@@ -4,6 +4,7 @@ let grid = [[]];
 let rowCount = 0;
 let colCount = 0;
 let disableInput = false;
+let isGameOver = false;
 
 gameLoop();
 
@@ -22,6 +23,18 @@ function gameLoop() {
   actionButtons.forEach((button) =>
     button.addEventListener("click", handleClickPress)
   );
+}
+
+function resetGame() {
+  word = [];
+  wordSet.clear();
+  grid = [[]];
+  rowCount = 0;
+  colCount = 0;
+  disableInput = false;
+  isGameOver = false;
+
+  gameLoop();
 }
 
 async function getWord() {
@@ -44,6 +57,8 @@ async function getWord() {
 
 function createWordleGrid() {
   const gridContainer = document.querySelector(".wordle-grid");
+
+  gridContainer.innerHTML = "";
 
   for (let row = 0; row < 6; row++) {
     grid[row] = [];
@@ -68,8 +83,6 @@ function createWordleGrid() {
     }
   }
 }
-
-function handleGameOver() {}
 
 function handleInput(input) {
   let textContainer = grid[rowCount][colCount];
@@ -106,6 +119,8 @@ function handleBackspace() {
 
 function checkWord() {
   disableInput = true;
+  isGameOver = true;
+
   for (let col = 0; col < 5; col++) {
     let textContainer = grid[rowCount][col];
 
@@ -116,6 +131,8 @@ function checkWord() {
       } else if (wordSet.has(textContainer.innerText.toLowerCase())) {
         textContainer.style.transition = "background-color 0.3s ease";
         textContainer.style.backgroundColor = "orange";
+
+        isGameOver = false;
       } else {
         textContainer.style.transition = "background-color 0.3s ease";
         textContainer.style.backgroundColor = "red";
@@ -126,12 +143,38 @@ function checkWord() {
 
         makeRedButton.style.backgroundColor = "red";
         makeRedButton.classList.add("no-hover");
+
+        isGameOver = false;
       }
     }, 300 * col);
   }
   setTimeout(() => {
     disableInput = false;
+
+    handleGameOver();
   }, 2000);
+}
+
+function handleGameOver() {
+  if (isGameOver === false) return;
+
+  document.getElementById("modal-title").textContent = "Congratulations";
+  document.getElementById("modal-message-1").textContent =
+    "Great job! You found the word!";
+
+  const modalElement = document.getElementById("modal");
+  modalElement.showModal();
+
+  document
+    .getElementById("tryAgain-button")
+    .addEventListener("click", function () {
+      modalElement.close();
+      resetGame();
+    });
+  document.getElementById("home-button").addEventListener("click", function () {
+    modalElement.close();
+    window.location.href = "index.html";
+  });
 }
 
 function handleKeyPress(e) {
