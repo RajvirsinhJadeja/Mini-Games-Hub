@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/wordle.css" />
+
+    <title>Wordle</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="wordle-grid"></div>
+      <div class="input-grid">
+        <div class="row1">
+          <p class="letter" data-letter="Q">Q</p>
+          <p class="letter" data-letter="W">W</p>
+          <p class="letter" data-letter="E">E</p>
+          <p class="letter" data-letter="R">R</p>
+          <p class="letter" data-letter="T">T</p>
+          <p class="letter" data-letter="Y">Y</p>
+          <p class="letter" data-letter="U">U</p>
+          <p class="letter" data-letter="I">I</p>
+          <p class="letter" data-letter="O">O</p>
+          <p class="letter" data-letter="P">P</p>
+        </div>
+        <div class="row2">
+          <p class="letter" data-letter="A">A</p>
+          <p class="letter" data-letter="S">S</p>
+          <p class="letter" data-letter="D">D</p>
+          <p class="letter" data-letter="F">F</p>
+          <p class="letter" data-letter="G">G</p>
+          <p class="letter" data-letter="H">H</p>
+          <p class="letter" data-letter="J">J</p>
+          <p class="letter" data-letter="K">K</p>
+          <p class="letter" data-letter="L">L</p>
+        </div>
+        <div class="row3">
+          <p class="letter" data-letter="Z">Z</p>
+          <p class="letter" data-letter="X">X</p>
+          <p class="letter" data-letter="C">C</p>
+          <p class="letter" data-letter="V">V</p>
+          <p class="letter" data-letter="B">B</p>
+          <p class="letter" data-letter="N">N</p>
+          <p class="letter" data-letter="M">M</p>
+        </div>
+        <div class="row4">
+          <p class="button">Enter</p>
+          <p class="button">Delete</p>
+        </div>
+      </div>
+    </div>
+
+    <dialog class="modal-content" id="modal">
+      <div class="modal-header">
+        <p class="modal-title" id="modal-title"></p>
+      </div>
+      <div class="modal-message">
+        <p id="modal-message-1"></p>
+        <p>Want to try again or head back home?</p>
+      </div>
+      <div class="modal-buttons">
+        <button class="tryAgain-button" id="tryAgain-button">Try again</button>
+        <button class="home-button" id="home-button">Home</button>
+      </div>
+    </dialog>
+
+    <script src="js/wordle.js"></script>
+  </body>
+</html>
