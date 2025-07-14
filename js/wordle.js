@@ -102,8 +102,6 @@ function handleEnter() {
     rowCount++;
     colCount = 0;
   }
-
-  if (rowCount === 5 && colCount === 4) handleGameOver();
 }
 
 function handleBackspace() {
@@ -150,6 +148,7 @@ function checkWord() {
   }
   setTimeout(() => {
     disableInput = false;
+    if (rowCount === 6) isGameOver = true;
 
     handleGameOver();
   }, 2000);
@@ -158,23 +157,48 @@ function checkWord() {
 function handleGameOver() {
   if (isGameOver === false) return;
 
-  document.getElementById("modal-title").textContent = "Congratulations";
-  document.getElementById("modal-message-1").textContent =
-    "Great job! You found the word!";
+  if (rowCount === 6) {
+    document.getElementById("modal-title").textContent = "Game Over";
+    document.getElementById(
+      "modal-message-1"
+    ).textContent = `Nice Try! The word was ${word.toString()}`;
 
-  const modalElement = document.getElementById("modal");
-  modalElement.showModal();
+    const modalElement = document.getElementById("modal");
+    modalElement.showModal();
 
-  document
-    .getElementById("tryAgain-button")
-    .addEventListener("click", function () {
-      modalElement.close();
-      resetGame();
-    });
-  document.getElementById("home-button").addEventListener("click", function () {
-    modalElement.close();
-    window.location.href = "index.html";
-  });
+    document
+      .getElementById("tryAgain-button")
+      .addEventListener("click", function () {
+        modalElement.close();
+        resetGame();
+      });
+    document
+      .getElementById("home-button")
+      .addEventListener("click", function () {
+        modalElement.close();
+        window.location.href = "index.html";
+      });
+  } else {
+    document.getElementById("modal-title").textContent = "Congratulations";
+    document.getElementById("modal-message-1").textContent =
+      "Great job! You found the word!";
+
+    const modalElement = document.getElementById("modal");
+    modalElement.showModal();
+
+    document
+      .getElementById("tryAgain-button")
+      .addEventListener("click", function () {
+        modalElement.close();
+        resetGame();
+      });
+    document
+      .getElementById("home-button")
+      .addEventListener("click", function () {
+        modalElement.close();
+        window.location.href = "index.html";
+      });
+  }
 }
 
 function handleKeyPress(e) {
