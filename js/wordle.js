@@ -1,5 +1,6 @@
 let word = [];
 const wordSet = new Set();
+let incorrectLetters = [];
 let grid = [[]];
 let rowCount = 0;
 let colCount = 0;
@@ -33,6 +34,19 @@ function resetGame() {
   colCount = 0;
   disableInput = false;
   isGameOver = false;
+
+  console.log("incorrect letters: " + incorrectLetters);
+
+  for (let i = 0; i < incorrectLetters.length; i++) {
+    let clearInput = document.querySelector(
+      `[data-letter="${incorrectLetters[i]}"]`
+    );
+
+    clearInput.style.backgroundColor = "transparent";
+    clearInput.classList.remove("no-hover");
+  }
+
+  incorrectLetters = [];
 
   gameLoop();
 }
@@ -134,6 +148,8 @@ function checkWord() {
       } else {
         textContainer.style.transition = "background-color 0.3s ease";
         textContainer.style.backgroundColor = "red";
+
+        incorrectLetters.push(textContainer.innerText);
 
         const makeRedButton = document.querySelector(
           `[data-letter="${textContainer.innerText}"]`
