@@ -174,10 +174,15 @@ function handleGameOver() {
   if (isGameOver === false) return;
 
   if (rowCount === 6) {
+    let wordString = "";
+    for (let i = 0; i < word.length; i++) {
+      wordString += word[i];
+    }
+
     document.getElementById("modal-title").textContent = "Game Over";
     document.getElementById(
       "modal-message-1"
-    ).textContent = `Nice Try! The word was ${word.toString()}`;
+    ).textContent = `Nice Try! The word was ${wordString}`;
 
     const modalElement = document.getElementById("modal");
     modalElement.showModal();
