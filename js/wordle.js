@@ -1,5 +1,6 @@
 let word = [];
 const wordSet = new Set();
+let correctLetters = [];
 let incorrectLetters = [];
 let grid = [[]];
 let rowCount = 0;
@@ -35,8 +36,6 @@ function resetGame() {
   disableInput = false;
   answerFound = false;
 
-  console.log("incorrect letters: " + incorrectLetters);
-
   for (let i = 0; i < incorrectLetters.length; i++) {
     let clearInput = document.querySelector(
       `[data-letter="${incorrectLetters[i]}"]`
@@ -46,7 +45,16 @@ function resetGame() {
     clearInput.classList.remove("no-hover");
   }
 
+  for (let i = 0; i < correctLetters.length; i++) {
+    let clearInput = document.querySelector(
+      `[data-letter="${correctLetters[i]}"]`
+    );
+
+    clearInput.style.backgroundColor = "transparent";
+  }
+
   incorrectLetters = [];
+  correctLetters = [];
 
   gameLoop();
 }
@@ -142,9 +150,25 @@ function checkWord() {
       if (textContainer.innerText.toLowerCase() == word[col].toLowerCase()) {
         textContainer.style.transition = "background-color 0.3s ease";
         textContainer.style.backgroundColor = "green";
+
+        correctLetters.push(textContainer.innerText);
+
+        const makeGreenButton = document.querySelector(
+          `[data-letter="${textContainer.innerText}"]`
+        );
+
+        makeGreenButton.style.backgroundColor = "green";
       } else if (wordSet.has(textContainer.innerText.toLowerCase())) {
         textContainer.style.transition = "background-color 0.3s ease";
         textContainer.style.backgroundColor = "orange";
+
+        correctLetters.push(textContainer.innerText);
+
+        const makeOrangeButton = document.querySelector(
+          `[data-letter="${textContainer.innerText}"]`
+        );
+
+        makeOrangeButton.style.backgroundColor = "orange";
 
         answerFound = false;
       } else {
