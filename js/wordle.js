@@ -1,11 +1,12 @@
 let word = [];
 const wordSet = new Set();
+let correctLetters = [];
 let incorrectLetters = [];
 let grid = [[]];
 let rowCount = 0;
 let colCount = 0;
 let disableInput = false;
-let isGameOver = false;
+let answerFound = false;
 
 gameLoop();
 
@@ -33,9 +34,7 @@ function resetGame() {
   rowCount = 0;
   colCount = 0;
   disableInput = false;
-  isGameOver = false;
-
-  console.log("incorrect letters: " + incorrectLetters);
+  answerFound = false;
 
   for (let i = 0; i < incorrectLetters.length; i++) {
     let clearInput = document.querySelector(
@@ -46,7 +45,16 @@ function resetGame() {
     clearInput.classList.remove("no-hover");
   }
 
+  for (let i = 0; i < correctLetters.length; i++) {
+    let clearInput = document.querySelector(
+      `[data-letter="${correctLetters[i]}"]`
+    );
+
+    clearInput.style.backgroundColor = "transparent";
+  }
+
   incorrectLetters = [];
+  correctLetters = [];
 
   gameLoop();
 }
@@ -57,6 +65,8 @@ async function getWord() {
       "https://random-word-api.herokuapp.com/word?length=5"
     );
     const test = await response.json();
+    if (test[0].length != 5) getWord();
+
     console.log(test[0]);
     for (let i = 0; i < 5; i++) {
       word.push(test[0].charAt(i).toLowerCase());
@@ -131,7 +141,7 @@ function handleBackspace() {
 
 function checkWord() {
   disableInput = true;
-  isGameOver = true;
+  answerFound = true;
 
   for (let col = 0; col < 5; col++) {
     let textContainer = grid[rowCount][col];
@@ -140,11 +150,27 @@ function checkWord() {
       if (textContainer.innerText.toLowerCase() == word[col].toLowerCase()) {
         textContainer.style.transition = "background-color 0.3s ease";
         textContainer.style.backgroundColor = "green";
+
+        correctLetters.push(textContainer.innerText);
+
+        const makeGreenButton = document.querySelector(
+          `[data-letter="${textContainer.innerText}"]`
+        );
+
+        makeGreenButton.style.backgroundColor = "green";
       } else if (wordSet.has(textContainer.innerText.toLowerCase())) {
         textContainer.style.transition = "background-color 0.3s ease";
         textContainer.style.backgroundColor = "orange";
 
-        isGameOver = false;
+        correctLetters.push(textContainer.innerText);
+
+        const makeOrangeButton = document.querySelector(
+          `[data-letter="${textContainer.innerText}"]`
+        );
+
+        makeOrangeButton.style.backgroundColor = "orange";
+
+        answerFound = false;
       } else {
         textContainer.style.transition = "background-color 0.3s ease";
         textContainer.style.backgroundColor = "red";
@@ -158,22 +184,20 @@ function checkWord() {
         makeRedButton.style.backgroundColor = "red";
         makeRedButton.classList.add("no-hover");
 
-        isGameOver = false;
+        answerFound = false;
       }
     }, 300 * col);
   }
   setTimeout(() => {
     disableInput = false;
-    if (rowCount === 6) isGameOver = true;
 
     handleGameOver();
   }, 2000);
 }
 
 function handleGameOver() {
-  if (isGameOver === false) return;
-
-  if (rowCount === 6) {
+  if (rowCount < 6 && answerFound === false) return;
+  if (rowCount >= 6 && answerFound === false) {
     let wordString = "";
     for (let i = 0; i < word.length; i++) {
       wordString += word[i];
